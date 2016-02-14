@@ -1,0 +1,12 @@
+<div class="row"><h1>Hello World</h1></div>
+<div class="row">
+	<form role="form">
+        <div class="form-group">
+            <label>Text Input</label>
+            <textarea class="form-control" rows="7" ng-model="text"></textarea>
+            <p class="help-block">Enter text to find multiple words</p>
+        </div>
+        <a class="btn btn-default" ui-sref="dashboard.chart" ng-click="findWords(text)">Find words</a>                            
+    </form>
+</div>
+

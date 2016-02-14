@@ -21,7 +21,7 @@ angular
       events:true,
     });
 
-    $urlRouterProvider.otherwise('/dashboard/home');
+    $urlRouterProvider.otherwise('/dashboard/test-task');
 
     $stateProvider
       .state('dashboard', {
@@ -93,37 +93,6 @@ angular
           }
         }
       })
-      .state('dashboard.find-words',{
-        url:'/find-words',
-        controller: 'WordsCtrl',
-        templateUrl:'views/dashboard/home.html',
-        resolve: {
-          loadMyFiles:function($ocLazyLoad) {
-            return $ocLazyLoad.load({
-              name:'sbAdminApp',
-              files:[
-              'scripts/controllers/main.js',
-              'scripts/directives/timeline/timeline.js',
-              'scripts/directives/notifications/notifications.js',
-              'scripts/directives/chat/chat.js',
-              'scripts/directives/dashboard/stats/stats.js'
-              ]
-            })
-          }
-        }
-      })
-      .state('dashboard.form',{
-        templateUrl:'views/form.html',
-        url:'/form'
-    })
-      .state('dashboard.blank',{
-        templateUrl:'views/pages/blank.html',
-        url:'/blank'
-    })
-      .state('login',{
-        templateUrl:'views/pages/login.html',
-        url:'/login'
-    })
       .state('dashboard.chart',{
         templateUrl:'views/chart.html',
         url:'/chart',
@@ -139,39 +108,27 @@ angular
             }),
             $ocLazyLoad.load({
                 name:'sbAdminApp',
-                files:['scripts/controllers/chartContoller.js']
+                files:[
+                  'scripts/services/getRepeatedWordsSrv.js',
+                  'scripts/controllers/chartContoller.js']
             })
           }
         }
     })
-      .state('dashboard.table',{
-        templateUrl:'views/table.html',
-        url:'/table'
+      .state('dashboard.testTask',{
+        templateUrl:'views/test-task.html',
+        url:'/test-task',
+        controller:'TestTaskCtrl',
+        resolve: {
+          loadMyFile:function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+                name:'sbAdminApp',
+                files:[
+                 'scripts/controllers/testTaskCtrl.js']
+            })
+          }
+        }
     })
-      .state('dashboard.panels-wells',{
-          templateUrl:'views/ui-elements/panels-wells.html',
-          url:'/panels-wells'
-      })
-      .state('dashboard.buttons',{
-        templateUrl:'views/ui-elements/buttons.html',
-        url:'/buttons'
-    })
-      .state('dashboard.notifications',{
-        templateUrl:'views/ui-elements/notifications.html',
-        url:'/notifications'
-    })
-      .state('dashboard.typography',{
-       templateUrl:'views/ui-elements/typography.html',
-       url:'/typography'
-   })
-      .state('dashboard.icons',{
-       templateUrl:'views/ui-elements/icons.html',
-       url:'/icons'
-   })
-      .state('dashboard.grid',{
-       templateUrl:'views/ui-elements/grid.html',
-       url:'/grid'
-   })
   }]);
 
     
