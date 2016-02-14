@@ -7,63 +7,73 @@
  * Controller of the sbAdminApp
  */
 angular.module('sbAdminApp')
-  .controller('ChartCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-    $scope.line = {
-	    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-	    series: ['Series A', 'Series B'],
-	    data: [
-	      [65, 59, 80, 81, 56, 55, 40],
-	      [28, 48, 40, 19, 86, 27, 90]
-	    ],
-	    onClick: function (points, evt) {
-	      console.log(points, evt);
-	    }
+   .controller('ChartCtrl', ['$scope', '$timeout', 'getWordsSrv', function ($scope, $timeout, getWordsSrv) {
+
+    $scope.text = "ProgForce, more than anything else, is a league of extraordinary talent - sought, refined, and dedicated to providing the most impeccable intelligence and service. Our team of professional software developers are specially chosen through a process of selection based not only on training, but conception and creative application. Our people don't just plug in the numbers. Our people create custom solutions for custom needs.";
+    
+    var words = getWordsSrv($scope.text).words;
+    var repeatedNumbers = getWordsSrv($scope.text).numbers;
+
+    // $scope.findWords = function (text) {
+    //     console.log("text", text);
+    //     words = getWordsSrv(text).words;
+    //     console.log("words", words);
+    //     repeatedNumbers = getWordsSrv(text).numbers;
+    //     console.log("repeatedNumbers", repeatedNumbers);
+    // }
+    
+     $scope.line = {
+        labels: words,
+        series: ['Series A'],
+        data: [repeatedNumbers],
+        onClick: function (points, evt) {
+          console.log(points, evt);
+        }
     };
 
     $scope.bar = {
-	    labels: ['2006', '2007', '2008', '2009', '2010', '2011', '2012'],
-		series: ['Series A', 'Series B'],
+        labels: words,
+        series: ['Series A'],
 
-		data: [
-		   [65, 59, 80, 81, 56, 55, 40],
-		   [28, 48, 40, 19, 86, 27, 90]
-		]
-    	
+        data: [
+           repeatedNumbers
+        ]
+        
     };
 
     $scope.donut = {
-    	labels: ["Download Sales", "In-Store Sales", "Mail-Order Sales"],
-    	data: [300, 500, 100]
+        labels:words,
+        data: repeatedNumbers
     };
 
     $scope.radar = {
-    	labels:["Eating", "Drinking", "Sleeping", "Designing", "Coding", "Cycling", "Running"],
+        labels:words,
 
-    	data:[
-    	    [65, 59, 90, 81, 56, 55, 40],
-    	    [28, 48, 40, 19, 96, 27, 100]
-    	]
+        data:[
+            repeatedNumbers,
+        ]
     };
 
     $scope.pie = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales"],
-    	data : [300, 500, 100]
+        labels :words,
+        data : repeatedNumbers
     };
+    
 
     $scope.polar = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"],
-    	data : [300, 500, 100, 40, 120]
+        labels : words,
+        data : repeatedNumbers
     };
 
     $scope.dynamic = {
-    	labels : ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"],
-    	data : [300, 500, 100, 40, 120],
-    	type : 'PolarArea',
+        labels : words,
+        data : repeatedNumbers,
+        type : 'PolarArea',
 
-    	toggle : function () 
-    	{
-    		this.type = this.type === 'PolarArea' ?
-    	    'Pie' : 'PolarArea';
-		}
+        toggle : function () 
+        {
+            this.type = this.type === 'PolarArea' ?
+            'Pie' : 'PolarArea';
+        }
     };
 }]);
